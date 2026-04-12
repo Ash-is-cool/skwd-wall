@@ -287,7 +287,7 @@ Item {
       spacing: 12
 
       Column {
-        width: (parent.width - parent.spacing * 4 - 2) * 0.30
+        width: (parent.width - parent.spacing * 4 - 2) * 0.38
         spacing: 8
 
         Text {
@@ -390,7 +390,7 @@ Item {
       }
 
       Column {
-        width: (parent.width - parent.spacing * 4 - 2) * 0.35
+        width: (parent.width - parent.spacing * 4 - 2) * 0.30
         spacing: 6
 
         Text {
@@ -420,7 +420,7 @@ Item {
       }
 
       Column {
-        width: (parent.width - parent.spacing * 4 - 2) * 0.35
+        width: (parent.width - parent.spacing * 4 - 2) * 0.30
         spacing: 6
 
         Text {
