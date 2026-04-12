@@ -11,15 +11,15 @@ depends=(
   'quickshell'
   'qt6-multimedia'
   'qt6-declarative'
-  'awww',
-  'mpvpaper',
+  'awww'
+  'mpvpaper'
   'matugen'
   'ttf-nerd-fonts-symbols'
   'ttf-roboto'
 )
 
 install="${pkgname}.install"
-source=("${pkgname}::git+https://github.com/liixini/skwd-wall.git")
+source=("${pkgname}::git+https://github.com/liixini/skwd-wall.git#branch=experimental/rust-refactor")
 sha256sums=('SKIP')
 
 pkgver() {
