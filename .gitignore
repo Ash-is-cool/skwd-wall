@@ -1,0 +1,24 @@
+*.swp
+*.swo
+*~
+.vscode/*
+!.vscode/settings.json
+.idea/
+
+*.bak
+
+massif.*
+massif-*
+data/scripts/profile-massif.sh
+
+.DS_Store
+Thumbs.db
+
+build/
+dist/
+
+# makepkg build artifacts
+packaging/aur/pkg/
+packaging/aur/src/
+packaging/aur/skwd-wall/
+packaging/aur/*.pkg.tar.zst

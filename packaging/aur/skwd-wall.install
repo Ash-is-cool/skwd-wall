@@ -1,0 +1,15 @@
+post_install() {
+  echo ">>> skwd-wall installed."
+  echo ">>> Make sure skwd-daemon is running:"
+  echo ">>>   systemctl --user enable --now skwd-daemon.service"
+  echo ">>> Launch the wallpaper selector with:"
+  echo ">>>   skwd wall toggle"
+}
+
+post_upgrade() {
+  echo ">>> skwd-wall updated."
+}
+
+pre_remove() {
+  echo ">>> Removing skwd-wall..."
+}

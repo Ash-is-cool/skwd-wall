@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Skwd-wall
+GenericName=Skwd-wall
+Comment=Browse, download and apply image, vdeo or wallpaper engine wallpapers in style.
+Exec=skwd wall toggle
+Terminal=false
+Categories=Utility;Settings;
+Keywords=wallpaper;background;theme;color;
