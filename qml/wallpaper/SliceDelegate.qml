@@ -12,6 +12,14 @@ Item {
     required property int index
     required property var model
 
+    onModelChanged: {
+        if (!model || !model.thumb)
+            console.warn("[SLICE-MODEL] CHANGED idx=" + index
+                + " model=" + (model ? "set" : "null")
+                + " thumb=" + (model && model.thumb ? model.thumb : "(empty)")
+                + " name=" + (model && model.name ? model.name : "(empty)"))
+    }
+
     property var colors
     property int expandedWidth: 768
     property int sliceWidth: 108
@@ -59,6 +67,18 @@ Item {
 
     width: isCurrent ? expandedWidth : sliceWidth
     height: _listView ? _listView.height : 0
+
+    Component.onCompleted: {
+        console.log("[SLICE-LIFE] CREATED idx=" + index
+            + " thumb=" + (model.thumb || "(empty)")
+            + " w=" + width + " h=" + height
+            + " listView=" + (!!_listView))
+    }
+    Component.onDestruction: {
+        console.log("[SLICE-LIFE] DESTROYED idx=" + index
+            + " imgStatus=" + thumbImage.status
+            + " source=" + (thumbImage.source ? "set" : "empty"))
+    }
 
     onIsCurrentChanged: {
         if (!isCurrent) flipped = false
@@ -201,25 +221,46 @@ Item {
             sourceSize.height: 720
             onStatusChanged: {
                 if (status === Image.Error)
-                    console.warn("[SLICE-DBG] FAILED idx=" + delegateItem.index + " src=" + source)
+                    console.warn("[SLICE-IMG] ERROR idx=" + delegateItem.index + " src=" + source)
+                else if (status === Image.Null)
+                    console.warn("[SLICE-IMG] NULL idx=" + delegateItem.index
+                        + " source=" + (source || "(empty)")
+                        + " thumb=" + (delegateItem.model.thumb || "(empty)"))
+                else if (status === Image.Ready)
+                    console.log("[SLICE-IMG] READY idx=" + delegateItem.index
+                        + " imgW=" + thumbImage.implicitWidth + "x" + thumbImage.implicitHeight
+                        + " containerW=" + imageContainer.width + "x" + imageContainer.height)
             }
-            Component.onCompleted: _diagTimer.restart()
-            Timer {
-                id: _diagTimer
-                interval: 2000
-                onTriggered: {
-                    if (thumbImage.status !== Image.Ready)
-                        console.warn("[SLICE-DBG] NOT READY idx=" + delegateItem.index
-                            + " status=" + thumbImage.status
-                            + " src=" + (thumbImage.source || "(empty)")
-                            + " thumb=" + (delegateItem.model.thumb || "(empty)")
-                            + " w=" + delegateItem.width
-                            + " opacity=" + delegateItem.opacity.toFixed(2)
-                            + " visible=" + delegateItem.visible)
-                }
+            onSourceChanged: {
+                console.log("[SLICE-IMG] SRC-CHANGE idx=" + delegateItem.index
+                    + " source=" + (source || "(empty)")
+                    + " thumb=" + (delegateItem.model.thumb || "(none)"))
             }
             opacity: status === Image.Ready ? 1 : 0
             Behavior on opacity { NumberAnimation { duration: Style.animNormal; easing.type: Easing.OutCubic } }
+
+            Timer {
+                id: _auditTimer
+                interval: 3000
+                running: true
+                onTriggered: {
+                    if (thumbImage.status !== Image.Ready) {
+                        console.warn("[SLICE-AUDIT] STUCK idx=" + delegateItem.index
+                            + " status=" + thumbImage.status
+                            + " source=" + (thumbImage.source || "(empty)")
+                            + " thumb=" + (delegateItem.model.thumb || "(empty)")
+                            + " delegateW=" + delegateItem.width + " delegateH=" + delegateItem.height
+                            + " delegateOpacity=" + delegateItem.opacity.toFixed(3)
+                            + " delegateVisible=" + delegateItem.visible
+                            + " imgContainerW=" + imageContainer.width + "x" + imageContainer.height
+                            + " frontFaceVis=" + frontFace.visible
+                            + " maskW=" + sharedMask.width + "x" + sharedMask.height
+                            + " layerEnabled=" + imageContainer.layer.enabled
+                            + " flipAngle=" + flipRotation.angle
+                            + " listViewW=" + (delegateItem._listView ? delegateItem._listView.width : -1))
+                    }
+                }
+            }
         }
 
         Rectangle {
