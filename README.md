@@ -137,7 +137,7 @@ Bind this command to a key in your compositor for quick access.
 ### NixOS
 
 ```sh
-nix profile install github:liixini/skwd-wall
+nix profile install github:liixini/skwd-wall/experimental/rust-refactor --no-write-lock-file
 ```
 
 <details>
@@ -148,7 +148,7 @@ Add the flake input to your `flake.nix`:
 ```nix
 {
   inputs = {
-    skwd-wall.url = "github:liixini/skwd-wall";
+    skwd-wall.url = "github:liixini/skwd-wall/experimental/rust-refactor";
   };
 }
 ```

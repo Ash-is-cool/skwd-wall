@@ -278,11 +278,14 @@ QtObject {
 
   function getWallpaperTags(name, weId) {
     if (weId) return tagsDb[weId] || []
-    return tagsDb[name] || []
+    var byName = tagsDb[name]
+    if (byName) return byName
+    var stem = name.replace(/\.[^.]+$/, "")
+    return tagsDb[stem] || []
   }
 
   function setWallpaperTags(name, weId, tags) {
-    var key = weId ? weId : name
+    var key = weId ? weId : name.replace(/\.[^.]+$/, "")
     var db = JSON.parse(JSON.stringify(tagsDb))
     db[key] = tags
     tagsDb = db

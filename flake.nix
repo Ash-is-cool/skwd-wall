@@ -39,6 +39,8 @@
             awww.packages.${system}.awww
           ];
 
+          daemonDeps = runtimeDeps ++ [ quickshellWithModules ];
+
           fonts = with pkgs; [
             nerd-fonts.symbols-only
             roboto
@@ -69,14 +71,22 @@
                 --add-flags "-p $out/share/skwd-wall/shell.qml"
 
               makeWrapper ${daemon}/bin/skwd $out/bin/skwd \
-                --prefix PATH : ${pkgs.lib.makeBinPath runtimeDeps}
+                --prefix PATH : ${pkgs.lib.makeBinPath daemonDeps} \
+                --set SKWD_SHELL_QML "$out/share/skwd-wall/shell.qml" \
+                --set SKWD_DATA_DIR "$out/share/skwd-wall/data"
 
-              install -Dm644 ${daemon}/lib/systemd/user/skwd-daemon.service \
-                $out/lib/systemd/user/skwd-daemon.service
+              makeWrapper ${daemon}/bin/skwd-daemon $out/bin/skwd-daemon \
+                --prefix PATH : ${pkgs.lib.makeBinPath daemonDeps} \
+                --set SKWD_SHELL_QML "$out/share/skwd-wall/shell.qml" \
+                --set SKWD_DATA_DIR "$out/share/skwd-wall/data"
+
+              mkdir -p $out/lib/systemd/user
+              substitute ${daemon}/lib/systemd/user/skwd-daemon.service \
+                $out/lib/systemd/user/skwd-daemon.service \
+                --replace-fail "${daemon}/bin/skwd-daemon" "$out/bin/skwd-daemon"
 
               install -Dm644 LICENSE $out/share/licenses/skwd-wall/LICENSE
 
-              # Symlink fonts into the package so they're available system-wide
               mkdir -p $out/share/fonts
               for font in ${pkgs.lib.concatMapStringsSep " " toString fonts}; do
                 if [ -d "$font/share/fonts" ]; then
