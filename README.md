@@ -22,9 +22,6 @@
 
 https://github.com/user-attachments/assets/c03ae4c8-76ea-42d0-8557-5db2465e6b2c
 
-
-
-
 ## What is Skwd-wall?
 
 An image/video/Wallpaper Engine wallpaper selector from my shell [Skwd](https://www.github.com/liixini/skwd) with maximalist animations and more flair than you can shake a stick at. Now separated as a standalone component for use with other shells.
@@ -67,6 +64,9 @@ As Skwd-wall shuts down entirely between uses it has zero footprint when not in 
 As Skwd-wall isn't simply flipping between hidden and shown fast startup times is a must and it takes about 0.2 seconds to start, with an optional 400 ms fade in animation.
 
 ## Dependencies
+<Details>
+<Summary>Dependency list</Summary>
+
 ### Required
 
 | Dependency                                                                                                                                                                                 | Why                                                                                                                  |
@@ -94,6 +94,8 @@ As Skwd-wall isn't simply flipping between hidden and shown fast startup times i
 | [steamcmd](https://developer.valvesoftware.com/wiki/SteamCMD)            | Steam Workshop integration for the in-app browsing of Wallpaper Engine wallpapers. Requires API keys and an actual purchased copy of Wallpaper Engine. Disabled by default but the functionality is in there if you want to try it out |
 | [linux-wallpaperengine](https://github.com/Almamu/linux-wallpaperengine) | Wallpaper Engine scene rendering. **_Not required if you only want video wallpapers_**!                                                                                                                                                | |
 
+</Details>
+
 ## Install
 
 ### Base wallpaper path
@@ -116,6 +118,9 @@ Research how to do this in your specific compositor, I'm sure it supports keybin
 
 ### Arch Linux
 
+<Details>
+<Summary>Arch Linux, CachyOS, EndevourOS, Manjaro, Garuda Linux etc.</Summary>
+
 ```sh
 # Install Skwd-wall and all its dependencies
 yay -S skwd-wall
@@ -131,7 +136,13 @@ Bind this command to a key in your compositor for quick access.
 
 > **Note:** `yay` is an AUR helper. If you don't have it, install it or use another helper like `paru`.
 
+</Details>
+
 ### NixOS
+
+<Details>
+<Summary>NixOS</Summary>
+
 Add the flake input to your `flake.nix`:
 
 ```nix
@@ -152,6 +163,8 @@ Then add the package to your `configuration.nix`:
   ];
 }
 ```
+And rebuild:
+```sudo nixos-rebuild switch```
 
 Enable Skwd-daemon:
 ```sh
@@ -165,17 +178,19 @@ skwd wall toggle
 
 Bind this command to a key in your compositor for quick access.
 
+</Details>
+
 ### Fedora
 
-Enable the COPR repos:
+<Details>
+<Summary>Fedora, Bazzite, Nobara etc.</Summary>
 
 ```sh
+# Enable the COPR repos
 sudo dnf copr enable errornointernet/quickshell
 sudo dnf copr enable scottames/awww
 sudo dnf copr enable piixini/skwd
-```
 
-```sh
 # Install skwd-wall
 sudo dnf install skwd-wall
 
@@ -188,17 +203,25 @@ skwd wall toggle
 
 Bind this command to a key in your compositor for quick access.
 
+</Details>
+
 ## Compositor-specific tweaks (KDE Plasma, Hyprland etc)
 
 ### Hyprland
+<Details>
+<Summary>Hyprland fixes and tweaks</Summary>
 In testing I experienced issues with NixOS + systemctl service autostart on Hyprland.
+
 This was resolved by adding a basic exec once to `hyprland.conf`, e.g.
+  
 `exec-once = systemctl --user start skwd-daemon`
 
 I am sure there's a much more graceful way to solve this, but I am not a Hyprland user and this works.
+</Details>
 
 ### KDE Plasma
-
+<Details>
+<Summary>KDE Plasma fixes and tweaks</Summary>
 Skwd-wall auto-detects KDE Plasma and uses native Plasma APIs instead of awww/mpvpaper.
 
 **Static wallpapers** work out of the box via `plasma-apply-wallpaperimage` - you don't have to do anything, it just works but still good to know.
@@ -222,6 +245,7 @@ yay -S plasma6-wallpapers-smart-video-wallpaper-reborn
 ```sh
 sudo dnf install plasma-smart-video-wallpaper-reborn
 ```
+</Details>
 
 ## Optional - Wallpaper Engine, Steamcmd & Ollama
 Skwd-wall supports two optional features - Wallpaper Engine wallpapers through [Linux Wallpaper Engine](https://github.com/Almamu/linux-wallpaperengine) and automated tagging for the tag search feature using computer vision through [Ollama](https://ollama.com/).
@@ -229,9 +253,13 @@ Skwd-wall supports two optional features - Wallpaper Engine wallpapers through [
 
 ### Wallpaper Engine
 As far as I am aware to use Wallpaper Engine on Linux you have to own the Steam application.
-Swkd-wall finds Wallpaper Engine wallpapers automatically and sorts them based on type (video or Wallpaper Engine Scene) but you can also use the built-in Wallpaper Engine browser.
+Swkd-wall finds Wallpaper Engine wallpapers automatically and sorts them based on type (video or Wallpaper Engine Scene). You can use the Steam application to manage your Steam Engine wallpaper collection.
 
-If you don't want to use the default Wallpaper Engine browser you can use Skwd-wall's internal one, which uses [Steamcmd](https://developer.valvesoftware.com/wiki/SteamCMD) (Valve's Command Line Interface for Steam) to search the Workshop behind the scenes. While you won't have to interact with Steamcmd more than logging in once so that Skwd-wall can use your token to browse the Workshop and download Wallpaper Engine workshop items (wallpapers) for you, it is quite the nerdy setup.
+However if you don't want to use the default Wallpaper Engine browser you can use Skwd-wall's internal one, which uses [Steamcmd](https://developer.valvesoftware.com/wiki/SteamCMD) which is Valve's Command Line Interface for Steam to search the Workshop behind the scenes.
+
+You won't have to interact with Steamcmd more than logging in once so that Skwd-wall can use your token to browse the Workshop and download Wallpaper Engine workshop items (wallpapers) for you and Skwd-wall will warn you if your token has expired or needs refreshing (read: you need to log into Steam again).
+
+Skwd-wall **does not** handle any of your Steam credentials - this is all done through Valve's Steamcmd - it simply tries to use Steamcmd and either you're logged in or you're not. This means that I will not be implementing in-app login flows for this - I do not wish to handle any authentication and I leave this solely on the shoulders of Valve.
 
 ### Ollama
 Ollama is a local-only LLM that in Skwd-wall's case is used to automatically tag wallpapers as it is a very easy way to setup computer vision.
