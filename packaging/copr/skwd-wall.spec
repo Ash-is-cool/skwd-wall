@@ -39,7 +39,7 @@ color sorting, Matugen integration, tag system, and Wallhaven & Steam in-app
 browsing. Features three visual presentation styles with rich animations.
 
 %prep
-%autosetup -n %{name}-rust-refactor
+%autosetup -n %{name}-experimental-rust-refactor
 
 %build
 # Nothing to build - QML application

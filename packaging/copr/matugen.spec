@@ -26,7 +26,7 @@ for theming your desktop environment.
 %build
 export RUSTUP_TOOLCHAIN=stable
 export CARGO_TARGET_DIR=target
-cargo build --release --locked
+cargo build --release
 
 %install
 install -Dpm 0755 target/release/matugen %{buildroot}%{_bindir}/matugen
