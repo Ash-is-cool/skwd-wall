@@ -584,6 +584,13 @@ Item {
           onToggle: function(v) { settingsPanel._saveConfigKey("general.reopenAtLastSelection", v) }
         }
 
+	SettingsToggle {
+          colors: settingsPanel.colors
+          label: "Auto Resize (Only For Video and Mpvpaper)"
+	  checked: Config.videoAutoScale
+	  onToggle: function(v) {  settingsPanel._saveConfigKey("features.videoAutoScale", v)  }
+        }
+
       }
     }
 

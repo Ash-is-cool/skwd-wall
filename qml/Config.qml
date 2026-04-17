@@ -88,6 +88,7 @@ QtObject {
     readonly property bool steamEnabled: _data.features?.steam !== false
     readonly property bool wallhavenEnabled: _data.features?.wallhaven !== false
     readonly property bool videoPreviewEnabled: _data.features?.videoPreview !== false
+    readonly property bool videoAutoScale: _data.features?.videoAutoScale !== false
     readonly property bool wallpaperMute: _data.wallpaperMute === true
 
     readonly property string videoConvertPreset: _data.performance?.videoConvertPreset ?? "balanced"
