@@ -15,12 +15,12 @@
 ![Fedora](https://img.shields.io/badge/Fedora-51A2DA?style=for-the-badge&logo=fedora&logoColor=white)
 ![NixOS](https://img.shields.io/badge/NixOS-5277C3?style=for-the-badge&logo=nixos&logoColor=white)
 
-<img width="2560" height="1439" alt="image" src="https://github.com/user-attachments/assets/157100e4-88e5-4542-8eba-fea0576e8801" />
-<img width="2562" height="1440" alt="image" src="https://github.com/user-attachments/assets/367a6a0d-a384-490d-abe2-98c053ff9ffc" />
-<img width="2558" height="1439" alt="image" src="https://github.com/user-attachments/assets/b73eff46-fa62-40cd-9109-9170adaa1dc5" />
-<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/577611da-d03d-4bf7-88c3-69b782cac668" />
-<img width="2560" height="1439" alt="image" src="https://github.com/user-attachments/assets/a221355a-2530-42bb-a9c1-54d31062c7af" />
-<img width="2561" height="1440" alt="image" src="https://github.com/user-attachments/assets/533f01d9-598b-4f02-881d-86cda7f28749" />
+<img alt="image" src="https://github.com/user-attachments/assets/157100e4-88e5-4542-8eba-fea0576e8801" />
+<img alt="image" src="https://github.com/user-attachments/assets/367a6a0d-a384-490d-abe2-98c053ff9ffc" />
+<img alt="image" src="https://github.com/user-attachments/assets/b73eff46-fa62-40cd-9109-9170adaa1dc5" />
+<img alt="image" src="https://github.com/user-attachments/assets/577611da-d03d-4bf7-88c3-69b782cac668" />
+<img alt="image" src="https://github.com/user-attachments/assets/a221355a-2530-42bb-a9c1-54d31062c7af" />
+<img alt="image" src="https://github.com/user-attachments/assets/533f01d9-598b-4f02-881d-86cda7f28749" />
 
 
 ### A video is a thousand pictures - Sun Tzu (probably)
@@ -168,20 +168,17 @@ Then add the package to your `configuration.nix`:
   ];
 }
 ```
-And rebuild:
-```sudo nixos-rebuild switch```
 
-Enable Skwd-daemon:
 ```sh
+# Rebuild:
+sudo nixos-rebuild switch
+
+# Enable Skwd-daemon:
 systemctl --user enable --now skwd-daemon.service
-```
 
-Launch Skwd-wall:
-```sh
+# Launch Skwd-wall. Bind this command to a key in your compositor for quick access:
 skwd wall toggle
 ```
-
-Bind this command to a key in your compositor for quick access.
 
 </Details>
 
@@ -196,17 +193,15 @@ sudo dnf copr enable errornointernet/quickshell
 sudo dnf copr enable scottames/awww
 sudo dnf copr enable piixini/skwd
 
-# Install skwd-wall
+# Install skwd-wall:
 sudo dnf install skwd-wall
 
 # Enable Skwd-daemon:
 systemctl --user enable --now skwd-daemon.service
 
-# Launch Skwd-wall:
+# Launch Skwd-wall. Bind this command to a key in your compositor for quick access:
 skwd wall toggle
 ```
-
-Bind this command to a key in your compositor for quick access.
 
 </Details>
 
