@@ -456,9 +456,17 @@ Item {
 
         SettingsToggle {
           colors: settingsPanel.colors
-          label: "WIP - Video and WE support coming. Apply wallpapers per monitor."
+          label: "Per monitor"
           checked: Config.wallpaperPerMonitor
           onToggle: function(v) { settingsPanel._saveConfigKey("general.wallpaperPerMonitor", v) }
+        }
+
+        Text {
+          width: parent.width
+          text: "WIP — Video and WE support coming."
+          font.family: Style.fontFamily; font.pixelSize: 10
+          color: settingsPanel.colors ? Qt.rgba(settingsPanel.colors.surfaceText.r, settingsPanel.colors.surfaceText.g, settingsPanel.colors.surfaceText.b, 0.4) : Qt.rgba(1, 1, 1, 0.3)
+          wrapMode: Text.Wrap
         }
       }
     }
